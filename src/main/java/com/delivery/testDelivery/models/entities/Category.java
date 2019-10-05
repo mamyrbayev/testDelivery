@@ -27,7 +27,7 @@ public class Category extends AuditModel {
     @NotNull(message = "name is required")
     private String name;
 
-    @Column(name = "photo_path")
-    private String photoPath;
+    @Column(name = "url")
+    private String url;
 
 }

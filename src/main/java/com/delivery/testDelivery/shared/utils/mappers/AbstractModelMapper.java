@@ -1,7 +1,7 @@
 package com.delivery.testDelivery.shared.utils.mappers;
 
 import com.delivery.testDelivery.models.audits.AuditModel;
-import com.delivery.testDelivery.models.dtos.CategoryDto;
+import com.delivery.testDelivery.models.dtos.MealDto;
 
 import java.util.List;
 

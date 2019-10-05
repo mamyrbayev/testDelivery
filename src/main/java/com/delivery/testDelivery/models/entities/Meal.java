@@ -1,6 +1,7 @@
 package com.delivery.testDelivery.models.entities;
 
 import com.delivery.testDelivery.models.audits.AuditModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,13 +21,13 @@ import javax.validation.constraints.NotNull;
         allocationSize = 1
 )
 public class Meal extends AuditModel {
-    @Column(name = "name")
-    @NotNull(message = "name is required")
-    private String name;
+    @Column(name = "title")
+    @NotNull(message = "title is required")
+    private String title;
 
     @Column(name = "price")
     @NotNull(message = "price is required")
-    private Integer price;
+    private String price;
 
     @Column(name = "ingredients")
     @NotNull(message = "ingredients is required")
@@ -38,10 +39,16 @@ public class Meal extends AuditModel {
     @Column(name = "tag")
     private String tag;
 
-    @Column(name = "photo_path")
-    private String photoPath;
+    @Column(name = "rating")
+    private Integer rating;
 
-    @ManyToOne
+    @Column(name = "url")
+    private String url;
+
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @NotNull(message = "category is required")
     private Category category;
 

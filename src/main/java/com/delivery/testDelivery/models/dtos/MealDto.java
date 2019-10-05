@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @ApiModel(description = "Таблица которая описывает модель еды")
 public class MealDto extends BaseDto {
     @ApiModelProperty(notes = "Наименование", readOnly = true)
-    private String name;
+    private String title;
 
     @ApiModelProperty(notes = "Цена", readOnly = true)
-    private Integer price;
+    private String price;
 
     @ApiModelProperty(notes = "Ингридиенты", readOnly = true)
     private String ingredients;
@@ -28,8 +28,14 @@ public class MealDto extends BaseDto {
     @ApiModelProperty(notes = "Метка", readOnly = true)
     private String tag;
 
+    @ApiModelProperty(notes = "Оценка", readOnly = true)
+    private Integer rating;
+
     @ApiModelProperty(notes = "Ссылка для фото", readOnly = true)
-    private String photoPath;
+    private String url;
+
+    @ApiModelProperty(notes = "Количество", readOnly = true)
+    private Integer quantity;
 
     @ApiModelProperty(notes = "Категория", readOnly = true)
     private CategoryDto category;

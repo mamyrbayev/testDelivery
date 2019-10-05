@@ -25,9 +25,6 @@ public class UserDto extends BaseDto {
     @ApiModelProperty(notes = "Адрес", readOnly = true)
     private String address;
 
-    @ApiModelProperty(notes = "Пароль", readOnly = true)
-    private String password;
-
     @ApiModelProperty(notes = "Роль", readOnly = true)
     private RoleDto role;
 }

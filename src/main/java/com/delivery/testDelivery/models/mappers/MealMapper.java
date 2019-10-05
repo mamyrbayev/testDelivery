@@ -1,6 +1,5 @@
 package com.delivery.testDelivery.models.mappers;
 
-import com.delivery.testDelivery.models.dtos.CategoryDto;
 import com.delivery.testDelivery.models.dtos.MealDto;
 import com.delivery.testDelivery.models.entities.Meal;
 import com.delivery.testDelivery.shared.utils.mappers.AbstractModelMapper;
@@ -25,7 +24,7 @@ public class MealMapper extends AbstractModelMapper<Meal, MealDto> {
 
     @Override
     public MealDto toDto(Meal meal) {
-        MealDto mealDto= modelMapper.map(meal, MealDto.class);
+        MealDto mealDto = modelMapper.map(meal, MealDto.class);
         if (meal.getCategory() != null) {
             mealDto.setCategory(categoryMapper.toDto(meal.getCategory()));
         }

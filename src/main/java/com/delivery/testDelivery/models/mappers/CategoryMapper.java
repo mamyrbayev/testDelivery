@@ -1,6 +1,7 @@
 package com.delivery.testDelivery.models.mappers;
 
 import com.delivery.testDelivery.models.dtos.CategoryDto;
+import com.delivery.testDelivery.models.dtos.MealDto;
 import com.delivery.testDelivery.models.entities.Category;
 import com.delivery.testDelivery.shared.utils.mappers.AbstractModelMapper;
 import org.modelmapper.ModelMapper;
