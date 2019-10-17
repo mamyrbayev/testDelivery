@@ -3,7 +3,9 @@ package com.delivery.testDelivery.services.impl;
 import com.delivery.testDelivery.exceptions.ServiceException;
 import com.delivery.testDelivery.models.entities.Meal;
 import com.delivery.testDelivery.models.entities.Order;
+import com.delivery.testDelivery.models.entities.OrdersMeals;
 import com.delivery.testDelivery.repositories.OrderRepository;
+import com.delivery.testDelivery.repositories.OrdersMealsRepository;
 import com.delivery.testDelivery.services.OrderService;
 import com.delivery.testDelivery.shared.utils.codes.ErrorCode;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,12 @@ import java.util.Optional;
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final OrdersMealsRepository ordersMealsRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrdersMealsRepository ordersMealsRepository) {
+
         this.orderRepository = orderRepository;
+        this.ordersMealsRepository = ordersMealsRepository;
     }
 
     @Override
@@ -46,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order save(Order order) throws ServiceException {
+    public Order save(Order order, List<OrdersMeals> ordersMeals) throws ServiceException {
         if(order.getId() != null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.ALREADY_EXISTS)
@@ -54,10 +59,12 @@ public class OrderServiceImpl implements OrderService {
                     .build();
         }
         int quantity = 0;
-        List<Meal> meals = order.getMeals();
-        for (Meal meal:meals){
+        for (OrdersMeals meal:ordersMeals){
             quantity += meal.getQuantity();
+            meal.setOrder(order);
+            meal.setMeal(meal.getMeal());
         }
+        ordersMealsRepository.saveAll(ordersMeals);
         order.setOverallQuantity(quantity);
         return  orderRepository.save(order);
     }
@@ -67,7 +74,7 @@ public class OrderServiceImpl implements OrderService {
         if(order.getId() == null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.SYSTEM_ERROR)
-                    .message("lesson is null")
+                    .message("x is null")
                     .build();
         }
         order = findById(order.getId());

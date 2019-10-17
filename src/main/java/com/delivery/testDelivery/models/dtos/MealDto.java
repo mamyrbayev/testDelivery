@@ -39,4 +39,13 @@ public class MealDto extends BaseDto {
 
     @ApiModelProperty(notes = "Категория", readOnly = true)
     private CategoryDto category;
+
+    @ApiModelProperty(notes = "в корзине?", example="")
+    private Boolean isAddedToCart;
+
+    @ApiModelProperty(notes = "в корзине?", example="")
+    private Boolean isAddedBtn;
+
+    @ApiModelProperty(notes = "в корзине?", example="")
+    private Boolean isFavourite;
 }

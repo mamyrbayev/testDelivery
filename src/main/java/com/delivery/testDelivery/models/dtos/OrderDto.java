@@ -26,7 +26,7 @@ public class OrderDto extends BaseDto {
     private User user;
 
     @ApiModelProperty(notes = "Блюда", readOnly = true)
-    private List<MealDto> meals;
+    private List<OrdersMealsDto> ordersMeals;
 
     @ApiModelProperty(notes = "Тип оплаты", readOnly = true)
     private String paymentType;

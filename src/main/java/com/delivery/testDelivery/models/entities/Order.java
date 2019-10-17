@@ -34,10 +34,6 @@ public class Order extends AuditModel {
     @NotNull(message = "User is required")
     private User user;
 
-    @ManyToMany
-    @JsonIgnore
-    private List<Meal> meals;
-
     @Column(name = "payment_type")
     @NotNull(message = "paymentType is required")
     private String paymentType;
