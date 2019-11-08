@@ -10,6 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 
 @Entity
@@ -43,11 +44,17 @@ public class User extends AuditModel {
     private String login;
 
     @Column(unique = true, name = "address")
-    @NotNull(message = "address is required")
     private String address;
 
     @NotNull(message = "password is required")
     private String password;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "birthday", nullable = false, updatable = false)
+    private Date birthday;
+
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     @ManyToOne
     @NotNull(message = "role is required")

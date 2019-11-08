@@ -13,5 +13,6 @@ public interface MealService {
     void delete(Meal meal) throws ServiceException;
     void deleteById(Long id) throws ServiceException;
     List<Meal> findByCourseId(Long id) throws ServiceException;
+    List<Meal> findByCategoryId(Long id) throws ServiceException;
 
 }

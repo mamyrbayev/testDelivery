@@ -38,9 +38,9 @@ public class Meal extends AuditModel {
 
     @Column(name = "tag")
     private String tag;
-
-    @Column(name = "rating")
-    private Integer rating;
+//
+//    @ManyToMany
+//    private Rating rating;
 
     @Column(name = "url")
     private String url;

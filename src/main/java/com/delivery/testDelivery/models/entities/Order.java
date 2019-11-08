@@ -2,7 +2,10 @@ package com.delivery.testDelivery.models.entities;
 
 import com.delivery.testDelivery.models.audits.AuditModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,6 +24,10 @@ import java.util.List;
         initialValue = 1,
         allocationSize = 1
 )
+@TypeDef(
+        name = "jsonb",
+        typeClass = JsonBinaryType.class
+)
 public class Order extends AuditModel {
     @Column(name = "overall_quantity")
     @NotNull(message = "overallQuantity is required")
@@ -38,5 +45,11 @@ public class Order extends AuditModel {
     @NotNull(message = "paymentType is required")
     private String paymentType;
 
+    @Type(type = "jsonb")
+    @Column(columnDefinition = "jsonb")
+    private List<Meal> meals;
+
+    @Column(name = "status")
+    private Integer status;
 
 }

@@ -29,8 +29,20 @@ public class MealServiceImpl implements MealService {
         Optional<Meal> courseOptional = mealRepository.findById(id);
         return courseOptional.orElseThrow(() -> ServiceException.builder()
                 .errorCode(ErrorCode.RESOURCE_NOT_FOUND)
-                .message("lesson not found")
+                .message("meal not found")
                 .build());
+    }
+
+    @Override
+    public List<Meal> findByCategoryId(Long id) throws ServiceException {
+        List<Meal> meals = mealRepository.findByCategoryId(id);
+        if(id == null){
+            throw ServiceException.builder()
+                    .errorCode(ErrorCode.SYSTEM_ERROR)
+                    .message("category is null")
+                    .build();
+        }
+        return meals;
     }
 
     @Override
@@ -38,18 +50,20 @@ public class MealServiceImpl implements MealService {
         if(meal.getId() == null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.SYSTEM_ERROR)
-                    .message("lesson is null")
+                    .message("meal is null")
                     .build();
         }
         return mealRepository.save(meal);
     }
+
+//   =
 
     @Override
     public Meal save(Meal meal) throws ServiceException {
         if(meal.getId() != null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.ALREADY_EXISTS)
-                    .message("lesson already exists")
+                    .message("meal already exists")
                     .build();
         }
         return  mealRepository.save(meal);
@@ -60,7 +74,7 @@ public class MealServiceImpl implements MealService {
         if(meal.getId() == null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.SYSTEM_ERROR)
-                    .message("lesson is null")
+                    .message("meal is null")
                     .build();
         }
         meal = findById(meal.getId());

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,4 +29,19 @@ public class UserDto extends BaseDto {
 
     @ApiModelProperty(notes = "Роль", readOnly = true)
     private RoleDto role;
+
+    @ApiModelProperty(notes = "Дата рожения", readOnly = true)
+    private Date birthday;
+
+    @ApiModelProperty(notes = "Активный", readOnly = true)
+    private Boolean isActive;
+
+    @ApiModelProperty(notes = "isLoggedIn", readOnly = true)
+    private Boolean isLoggedIn = false;
+
+    @ApiModelProperty(notes = "isSignedUp", readOnly = true)
+    private Boolean isSignedUp = false;
+
+    @ApiModelProperty(notes = "productTitleSearched", readOnly = true)
+    private String productTitleSearched = "";
 }

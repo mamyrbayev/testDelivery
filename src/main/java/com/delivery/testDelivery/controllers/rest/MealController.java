@@ -30,6 +30,12 @@ public class MealController extends BaseController {
         return buildResponse(mealMapper.toDtoList(mealService.findAll()), HttpStatus.OK);
     }
 
+    @GetMapping("/category/{id}")
+    @ApiOperation("Получение еды по категориям")
+    public ResponseEntity<?> getByCategoryId(@ApiParam("ID элемента") @PathVariable Long id) throws ServiceException {
+        return buildResponse(mealMapper.toDtoList(mealService.findByCategoryId(id)), HttpStatus.OK);
+    }
+
     @GetMapping("{id}")
     @ApiOperation("Получение еды по ID")
     public ResponseEntity<?> getOne(@ApiParam("ID элемента") @PathVariable Long id) throws ServiceException {

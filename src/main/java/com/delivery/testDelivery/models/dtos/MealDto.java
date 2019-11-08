@@ -1,7 +1,7 @@
 package com.delivery.testDelivery.models.dtos;
 
 import com.delivery.testDelivery.models.dtos.base.BaseDto;
-import com.delivery.testDelivery.models.entities.Category;
+//import com.delivery.testDelivery.models.entities.Rating;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,8 +28,8 @@ public class MealDto extends BaseDto {
     @ApiModelProperty(notes = "Метка", readOnly = true)
     private String tag;
 
-    @ApiModelProperty(notes = "Оценка", readOnly = true)
-    private Integer rating;
+//    @ApiModelProperty(notes = "Оценка", readOnly = true)
+//    private Rating rating;
 
     @ApiModelProperty(notes = "Ссылка для фото", readOnly = true)
     private String url;
@@ -40,12 +40,10 @@ public class MealDto extends BaseDto {
     @ApiModelProperty(notes = "Категория", readOnly = true)
     private CategoryDto category;
 
-    @ApiModelProperty(notes = "в корзине?", example="")
-    private Boolean isAddedToCart;
+    @ApiModelProperty(notes = "в корзине?")
+    private Boolean isAddedToCart = false;
 
-    @ApiModelProperty(notes = "в корзине?", example="")
-    private Boolean isAddedBtn;
+    @ApiModelProperty(notes = "в корзине?")
+    private Boolean isAddedBtn = false;
 
-    @ApiModelProperty(notes = "в корзине?", example="")
-    private Boolean isFavourite;
 }

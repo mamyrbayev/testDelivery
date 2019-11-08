@@ -15,29 +15,28 @@ import java.util.stream.Collectors;
 public class OrderMapper extends AbstractModelMapper<Order, OrderDto> {
 
     private final ModelMapper modelMapper;
-    private final OrdersMealsMapper ordersMealsMapper;
+    private final MealMapper mealMapper;
 
-    public OrderMapper(ModelMapper modelMapper, OrdersMealsMapper ordersMealsMapper) {
+    public OrderMapper(ModelMapper modelMapper, MealMapper mealMapper) {
         this.modelMapper = modelMapper;
-        this.ordersMealsMapper = ordersMealsMapper;
+        this.mealMapper = mealMapper;
     }
 
     @Override
     public OrderDto toDto(Order order) {
         OrderDto orderDto = modelMapper.map(order, OrderDto.class);
-//        if (order.getOrdersMeals() != null) {
-//            orderDto.setOrdersMeals(ordersMealsMapper.toDtoList(order.getOrdersMeals()));
-//        }
+        if (order.getMeals() != null) {
+            orderDto.setMeals(mealMapper.toDtoList(order.getMeals()));
+        }
         return orderDto;
-
     }
 
     @Override
     public Order toEntity(OrderDto orderDto) {
         Order order = modelMapper.map(orderDto, Order.class);
-//        if (orderDto.getOrdersMeals() != null) {
-//            order.setOrdersMeals(ordersMealsMapper.toEntityList(orderDto.getOrdersMeals()));
-//        }
+        if (orderDto.getMeals() != null) {
+            order.setMeals(mealMapper.toEntityList(orderDto.getMeals()));
+        }
         return order;
     }
 
