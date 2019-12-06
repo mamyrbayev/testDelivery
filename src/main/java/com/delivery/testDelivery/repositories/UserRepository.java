@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByDeletedAtIsNull();
+    List<User> findAllByDeletedAtIsNullAndRoleId(Long id);
 }

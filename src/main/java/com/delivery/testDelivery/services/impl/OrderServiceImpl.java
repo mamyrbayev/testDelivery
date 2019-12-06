@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
         if(order.getId() == null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.SYSTEM_ERROR)
-                    .message("lesson is null")
+                    .message("order is null")
                     .build();
         }
         return orderRepository.save(order);
@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService {
         if(order.getId() != null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.ALREADY_EXISTS)
-                    .message("lesson already exists")
+                    .message("order already exists")
                     .build();
         }
         int quantity = 0;

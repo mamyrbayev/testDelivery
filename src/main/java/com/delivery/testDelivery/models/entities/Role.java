@@ -26,9 +26,11 @@ public class Role extends AuditModel {
 
     public final static Long ROLE_ADMIN_ID = 1L;
     public final static Long ROLE_USER = 2L;
+    public final static Long ROLE_RESTAURANT_ID = 3L;
 
     public final static String ROLE_ADMIN_NAME = "ROLE_ADMIN";
     public final static String ROLE_TEACHER_NAME = "ROLE_USER";
+    public final static String ROLE_RESTAURANT_NAME = "ROLE_RESTAURANT_NAME";
 
     @Column(unique = true)
     private String name;

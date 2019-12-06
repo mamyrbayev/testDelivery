@@ -17,7 +17,7 @@ public class MealDto extends BaseDto {
     private String title;
 
     @ApiModelProperty(notes = "Цена", readOnly = true)
-    private String price;
+    private Double price;
 
     @ApiModelProperty(notes = "Ингридиенты", readOnly = true)
     private String ingredients;

@@ -27,7 +27,7 @@ public class Meal extends AuditModel {
 
     @Column(name = "price")
     @NotNull(message = "price is required")
-    private String price;
+    private Double price;
 
     @Column(name = "ingredients")
     @NotNull(message = "ingredients is required")

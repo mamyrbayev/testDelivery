@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -52,6 +53,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userRepository.findAllByDeletedAtIsNull();
+    }
+
+    @Override
+    public List<User> findAllByRole(Long id) {
+//        Object user = SecurityContextHolder.getContext().getAuthentication()
+//                .getPrincipal();
+//        System.out.println(user);
+        return userRepository.findAllByDeletedAtIsNullAndRoleId(id);
     }
 
     @Override
@@ -143,7 +152,8 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), getAuthority(user));
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(),
+                getAuthority(user));
     }
 
 }

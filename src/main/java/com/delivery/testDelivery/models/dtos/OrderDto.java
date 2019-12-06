@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@Getter
 @NoArgsConstructor
 @ApiModel(description = "Таблица которая описывает модель заказов")
 public class OrderDto extends BaseDto {
@@ -20,10 +19,10 @@ public class OrderDto extends BaseDto {
     private Integer overallQuantity;
 
     @ApiModelProperty(notes = "Общая цена", readOnly = true)
-    private Integer overallPrice;
+    private Double overallPrice;
 
     @ApiModelProperty(notes = "Пользователь", readOnly = true)
-    private User user;
+    private UserDto user;
 
     @ApiModelProperty(notes = "Блюда", readOnly = true)
     private List<MealDto> meals;

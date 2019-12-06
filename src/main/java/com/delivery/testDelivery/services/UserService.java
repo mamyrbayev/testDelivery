@@ -11,6 +11,7 @@ public interface UserService extends UserDetailsService {
 
     User findById(Long id) throws ServiceException;
     List<User> findAll();
+    List<User> findAllByRole(Long id);
     List<User> findAllWithDeleted();
     User update(User user) throws ServiceException ;
     User save(User user) throws ServiceException ;

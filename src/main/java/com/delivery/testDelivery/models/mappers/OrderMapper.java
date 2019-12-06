@@ -1,10 +1,9 @@
 package com.delivery.testDelivery.models.mappers;
 
-import com.delivery.testDelivery.models.dtos.MealDto;
 import com.delivery.testDelivery.models.dtos.OrderDto;
-import com.delivery.testDelivery.models.entities.Meal;
 import com.delivery.testDelivery.models.entities.Order;
 import com.delivery.testDelivery.shared.utils.mappers.AbstractModelMapper;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -12,21 +11,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@AllArgsConstructor
 public class OrderMapper extends AbstractModelMapper<Order, OrderDto> {
 
     private final ModelMapper modelMapper;
     private final MealMapper mealMapper;
-
-    public OrderMapper(ModelMapper modelMapper, MealMapper mealMapper) {
-        this.modelMapper = modelMapper;
-        this.mealMapper = mealMapper;
-    }
+    private final UserMapper userMapper;
 
     @Override
     public OrderDto toDto(Order order) {
         OrderDto orderDto = modelMapper.map(order, OrderDto.class);
         if (order.getMeals() != null) {
             orderDto.setMeals(mealMapper.toDtoList(order.getMeals()));
+        }
+        if (order.getUser() != null) {
+            orderDto.setUser(userMapper.toDto(order.getUser()));
         }
         return orderDto;
     }

@@ -35,7 +35,7 @@ public class Order extends AuditModel {
 
     @Column(name = "overall_price")
     @NotNull(message = "overallPrice is required")
-    private Integer overallPrice;
+    private Double overallPrice;
 
     @ManyToOne
     @NotNull(message = "User is required")

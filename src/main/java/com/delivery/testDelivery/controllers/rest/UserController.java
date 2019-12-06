@@ -38,6 +38,12 @@ public class UserController extends BaseController {
         return buildResponse(userMapper.toDtoList(userService.findAll()), HttpStatus.OK);
     }
 
+    @GetMapping("/role/{id}")
+    @ApiOperation("Получение всех пользователей по роли")
+    public ResponseEntity<?> getAllByRole(@ApiParam("ID роли") @PathVariable Long id) {
+        return buildResponse(userMapper.toDtoList(userService.findAllByRole(id)), HttpStatus.OK);
+    }
+
     @GetMapping("{id}")
     @ApiOperation("Получение по ID")
     public ResponseEntity<?> getOne(@ApiParam("ID элемента") @PathVariable Long id) throws ServiceException {
@@ -55,6 +61,17 @@ public class UserController extends BaseController {
         return buildResponse(userMapper.toDto(user), HttpStatus.OK);
     }
 
+    @PostMapping("/restaurant")
+    @ApiOperation("Регистрация пользователей для рестика")
+    public ResponseEntity<?> addRestaurantUser(@RequestBody UserDto userDto) throws ServiceException {
+        User user = userMapper.toEntity(userDto);
+        Role role = new Role();
+        role.setId(Role.ROLE_RESTAURANT_ID);
+        user.setRole(role);
+        user = userService.save(user);
+        return buildResponse(userMapper.toDto(user), HttpStatus.OK);
+    }
+
     @PostMapping("/validate")
     @ApiOperation("Валидация логина")
     public ResponseEntity<?> validate(@RequestParam String login) throws ServiceException {
@@ -64,9 +81,7 @@ public class UserController extends BaseController {
         } else {
             return buildResponse(SuccessResponse.builder().message("OK").build(), HttpStatus.OK);
         }
-
     }
-
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) throws ServiceException {
