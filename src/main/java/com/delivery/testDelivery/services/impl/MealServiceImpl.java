@@ -26,8 +26,8 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal findById(Long id) throws ServiceException {
-        Optional<Meal> courseOptional = mealRepository.findById(id);
-        return courseOptional.orElseThrow(() -> ServiceException.builder()
+        Optional<Meal> mealOptional = Optional.ofNullable(mealRepository.findByIdAndDeletedAtIsNull(id));
+        return mealOptional.orElseThrow(() -> ServiceException.builder()
                 .errorCode(ErrorCode.RESOURCE_NOT_FOUND)
                 .message("meal not found")
                 .build());
@@ -35,7 +35,7 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public List<Meal> findByCategoryId(Long id) throws ServiceException {
-        List<Meal> meals = mealRepository.findByCategoryId(id);
+        List<Meal> meals = mealRepository.findAllByCategoryIdAndDeletedAtIsNull(id);
         if(id == null){
             throw ServiceException.builder()
                     .errorCode(ErrorCode.SYSTEM_ERROR)
@@ -55,8 +55,6 @@ public class MealServiceImpl implements MealService {
         }
         return mealRepository.save(meal);
     }
-
-//   =
 
     @Override
     public Meal save(Meal meal) throws ServiceException {
@@ -93,16 +91,5 @@ public class MealServiceImpl implements MealService {
         Meal meal = findById(id);
         meal.setDeletedAt(new Date());
         mealRepository.save(meal);
-    }
-
-    @Override
-    public List<Meal> findByCourseId(Long id) throws ServiceException {
-        if (id == null){
-            throw ServiceException.builder()
-                    .errorCode(ErrorCode.SYSTEM_ERROR)
-                    .message("id is null")
-                    .build();
-        }
-        return mealRepository.findAllByCategoryId(id);
     }
 }

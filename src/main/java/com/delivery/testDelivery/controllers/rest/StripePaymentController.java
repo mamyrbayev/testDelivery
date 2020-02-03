@@ -21,6 +21,6 @@ public class StripePaymentController extends BaseController {
     public Charge chargeCard(@RequestBody Payment payment) throws Exception {
 //        String token = request.getHeader("token");
 //        Double amount = Double.parseDouble(request.getHeader("amount"));
-        return this.stripePaymentService.chargeNewCard(payment.getToken(), payment.getAmount());
+        return this.stripePaymentService.chargeNewCard(payment.getToken(), payment.getAmount(), payment.getDescription());
     }
 }

@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface MealRepository extends JpaRepository<Meal, Long> {
     List<Meal> findAllByDeletedAtIsNull();
-    List<Meal> findAllByCategoryId(Long id);
-    List<Meal> findByCategoryId(Long id);
+    List<Meal> findAllByCategoryIdAndDeletedAtIsNull(Long id);
+    Meal findByIdAndDeletedAtIsNull(Long id);
 }

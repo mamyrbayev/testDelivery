@@ -18,10 +18,11 @@ public class StripePaymentServiceImpl implements StripePaymentService {
     }
 
     @Override
-    public Charge chargeNewCard(String token, double amount) throws Exception {
+    public Charge chargeNewCard(String token, double amount, String description) throws Exception {
         Map<String, Object> chargeParams = new HashMap<String, Object>();
         chargeParams.put("amount", (int)(amount * 100));
         chargeParams.put("currency", "CAD");
+        chargeParams.put("description", description);
         chargeParams.put("source", token);
         Charge charge = Charge.create(chargeParams);
 

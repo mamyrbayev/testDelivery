@@ -27,6 +27,9 @@ public class UserDto extends BaseDto {
     @ApiModelProperty(notes = "Адрес", readOnly = true)
     private String address;
 
+    @ApiModelProperty(notes = "pass", readOnly = true)
+    private String password;
+
     @ApiModelProperty(notes = "Роль", readOnly = true)
     private RoleDto role;
 
@@ -35,13 +38,4 @@ public class UserDto extends BaseDto {
 
     @ApiModelProperty(notes = "Активный", readOnly = true)
     private Boolean isActive;
-
-    @ApiModelProperty(notes = "isLoggedIn", readOnly = true)
-    private Boolean isLoggedIn = false;
-
-    @ApiModelProperty(notes = "isSignedUp", readOnly = true)
-    private Boolean isSignedUp = false;
-
-    @ApiModelProperty(notes = "productTitleSearched", readOnly = true)
-    private String productTitleSearched = "";
 }

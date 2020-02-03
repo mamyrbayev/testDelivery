@@ -5,6 +5,7 @@ import com.delivery.testDelivery.exceptions.ServiceException;
 import com.delivery.testDelivery.models.dtos.OrderDto;
 import com.delivery.testDelivery.models.entities.Order;
 import com.delivery.testDelivery.models.mappers.OrderMapper;
+import com.delivery.testDelivery.models.requests.OrderStatRequest;
 import com.delivery.testDelivery.services.OrderService;
 import com.delivery.testDelivery.shared.utils.responses.SuccessResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,6 +40,12 @@ public class OrderController extends BaseController {
     @ApiOperation("Получение всех заказов в грязном виде")
     public ResponseEntity<?> getAll() {
         return buildResponse(orderMapper.toDtoList(orderService.findAll()), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{id}")
+    @ApiOperation("Получение всех заказов по пользователям")
+    public ResponseEntity<?> getAll(@PathVariable Long id) {
+        return buildResponse(orderMapper.toDtoList(orderService.findAllByUserId(id)), HttpStatus.OK);
     }
 
     @GetMapping("{id}")
@@ -84,6 +92,15 @@ public class OrderController extends BaseController {
         return buildResponse(SuccessResponse.builder()
                 .message("updated")
                 .data(orderMapper.toDto(order))
+                .build(), HttpStatus.OK);
+    }
+
+    @PostMapping("/stat")
+    @ApiOperation("Получение статистики по дате")
+    public ResponseEntity<?> getOne(@ApiParam("ID элемента") @RequestBody OrderStatRequest orderStatRequest) throws ServiceException {
+        return buildResponse(SuccessResponse.builder()
+                .message("Statistics")
+                .data(orderService.getOrderAmount(orderStatRequest.getFrom(), orderStatRequest.getTill()))
                 .build(), HttpStatus.OK);
     }
 }

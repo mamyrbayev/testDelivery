@@ -3,10 +3,12 @@ package com.delivery.testDelivery.services.impl;
 import com.delivery.testDelivery.exceptions.ServiceException;
 import com.delivery.testDelivery.models.entities.Meal;
 import com.delivery.testDelivery.models.entities.Order;
+import com.delivery.testDelivery.models.responses.OrderStatResponse;
 import com.delivery.testDelivery.repositories.OrderRepository;
 import com.delivery.testDelivery.services.MealService;
 import com.delivery.testDelivery.services.OrderService;
 import com.delivery.testDelivery.shared.utils.codes.ErrorCode;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,18 +17,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final MealService mealService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, MealService mealService) {
-        this.orderRepository = orderRepository;
-        this.mealService = mealService;
-    }
 
     @Override
     public List<Order> findAll() {
         return orderRepository.findAllByDeletedAtIsNull();
+    }
+
+    @Override
+    public List<Order> findAllByUserId(Long id) {
+        return orderRepository.findAllByDeletedAtIsNullAndUserId(id);
     }
 
     @Override
@@ -109,6 +113,19 @@ public class OrderServiceImpl implements OrderService {
                     .build();
         }
         order.setStatus(status);
-        return order;
+        return orderRepository.save(order);
+    }
+
+    @Override
+    public OrderStatResponse getOrderAmount(Date from, Date till) {
+        List<Order> orders = orderRepository.findAllByCreatedAtBetweenAndDeletedAtIsNull(from, till);
+        OrderStatResponse orderStatResponse = new OrderStatResponse();
+        Double sum = 0.0;
+        for(Order o: orders){
+            sum += o.getOverallPrice();
+        }
+        orderStatResponse.setSum(sum);
+        orderStatResponse.setQuantity(orders.size());
+        return orderStatResponse;
     }
 }

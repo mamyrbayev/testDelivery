@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Payment implements Serializable {
-    private String token;
-    private double amount;
-    private String description;
+public class OrderStatRequest {
+    private Date from;
+    private Date till;
 }
